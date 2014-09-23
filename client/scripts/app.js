@@ -3,6 +3,7 @@ var app = {
 
   init: function(){
     this.server = 'https://api.parse.com/1/classes/chatterbox';
+    this.roomname = "lobby";
     $('#username-input').val(window.location.search.substring(1).split('=')[1]);
   },
 
@@ -26,6 +27,7 @@ var app = {
       url: this.server,
       type: 'GET',
       data: {
+        where: {"roomname": this.roomname},
         order: '-createdAt'
       },
       success: function(data){
@@ -56,26 +58,66 @@ var app = {
 
   clearMessages: function(){
     $('#chats').html('');
+  },
+
+  addRoom: function(roomName){
+    var $room = $('<option>').text(roomName);
+    $('#roomSelect').append($room);
+  },
+
+  handleSubmit: function(e){
+    e.preventDefault();
+    var message = {
+      username: $('#username-input').val(),
+      text: $('#message').val(),
+      roomname: app.roomname
+    };
+    $('#message').val('');
+    app.send(message);
   }
 
 };
 
+
 $(function(){
   app.init();
   app.updateChat();
+  // lebronSpam();
 
-  $('#form').submit(function(e){
-    e.preventDefault();
-    var message = {
-      username: $('#username-input').val(),
-      text: $('#text').val(),
-      roomname: "lobby"
-    };
-    $('#text').val('');
-    app.send(message);
+  $('#form').submit(app.handleSubmit);
+
+  $('#roomSelect').change(function(){
+    app.roomname = $('#roomSelect option:selected').val();
+    console.log('room changed to ', app.roomname);
+    lebronSpam();
+    console.log('lebron james has entered the room');
   });
 
 });
 
+// LEBRON
+var lebron = [
+  "...BROWSERFY",
+  "...PHP",
+  "...Angular",
+  "...Level DB",
+  "NPM!",
+  "...for more info: <a href='http://lebron.technology'>http://lebron.technology</a>",
+  "LEBRON JAMES, with NO respect for humanity!!!!!1111!!11!1"
+];
 
+var lebronSpam = function(){
+  var choose = function(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
+
+  for (var i = 0; i < 100; i++) {
+    var message = {
+      username: "LEBRON STACK",
+      text: choose(lebron),
+      roomname: app.roomname
+    };
+    app.send(message);
+  }
+};
 

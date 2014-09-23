@@ -17,10 +17,14 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <select id="roomSelect">
+        <option value="lobby">Lobby</option>
+        <option value="4chan">4chan</option>
+      </select>
       <form id="form" action="" method="POST">
         <input type="hidden" id="username-input">
-        <input type="text" id="text" placeholder="Type your message here">
-        <input type="submit"></input>
+        <input type="text" id="message" placeholder="Type your message here">
+        <input type="submit" id="submit"></input>
       </form>
       <div id="chats"></div>
     </div>
