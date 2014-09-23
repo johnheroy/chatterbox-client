@@ -4,6 +4,7 @@ var app = {
   init: function(){
     this.server = 'https://api.parse.com/1/classes/chatterbox';
     this.roomname = "lobby";
+    this.rooms = [];
     $('#username-input').val(window.location.search.substring(1).split('=')[1]);
   },
 
@@ -63,6 +64,8 @@ var app = {
   addRoom: function(roomName){
     var $room = $('<option>').text(roomName);
     $('#roomSelect').append($room);
+    this.roomname = roomName;
+
   },
 
   handleSubmit: function(e){
@@ -74,8 +77,13 @@ var app = {
     };
     $('#message').val('');
     app.send(message);
-  }
+  },
 
+  addRoomForm: function(e){
+    e.preventDefault();
+    app.addRoom($('#newRoom').val());
+    $('#newRoom').val('');
+  }
 };
 
 
@@ -92,6 +100,8 @@ $(function(){
     lebronSpam();
     console.log('lebron james has entered the room');
   });
+
+  $('#roomForm').submit(app.addRoomForm);
 
 });
 
