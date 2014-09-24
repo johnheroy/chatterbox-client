@@ -1,4 +1,13 @@
 // YOUR CODE HERE:
+
+
+$(function(){
+
+
+
+});
+
+
 var app = {
 
   init: function(){
@@ -42,7 +51,7 @@ var app = {
   },
 
   addMessage: function(data){
-    var newChat = $('<div>').addClass('chat');1
+    var newChat = $('<div>').addClass('chat');
     var user = $('<span>').addClass('username').text(data.username);
     var text = $('<span>').addClass('text').text(data.text);
     newChat.append(user);
